@@ -27,9 +27,13 @@ module "azure-configured-resources-with-vm" {
   vm_network_interface_name    = var.azure_vm_network_interface_name
   vm_ssh_private_key_file_name = var.azure_vm_ssh_private_key_name
   vm_admin_user_name           = var.azure_vm_admin_user_name
-  vm_identity_type             = "UserAssigned"
-  vm_identities_ids            = [ module.azure_managed_identity.managed_identity_id ]
-  depends_on                   = [azurerm_resource_group.az_rg]
+  vm_identities                = [
+    {
+      type           = "UserAssigned",
+      identities_ids = toset([module.azure_managed_identity.managed_identity_id])
+    }
+  ]
+  depends_on = [azurerm_resource_group.az_rg]
 }
 
 resource "azuread_group" "azuread-group" {

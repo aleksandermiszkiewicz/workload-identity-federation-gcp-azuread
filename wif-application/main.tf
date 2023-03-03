@@ -28,7 +28,6 @@ module "azure-configured-resources-with-vm" {
   vm_network_interface_name    = var.azure_vm_network_interface_name
   vm_ssh_private_key_file_name = var.azure_vm_ssh_private_key_name
   vm_admin_user_name           = var.azure_vm_admin_user_name
-  vm_identity_type             = "SystemAssigned"
   depends_on                   = [azurerm_resource_group.az_rg]
 }
 

@@ -92,9 +92,12 @@ resource "azurerm_linux_virtual_machine" "az_test_vm" {
     version   = "latest"
   }
 
-  identity {
-    type         = var.vm_identity_type
-    identity_ids = var.vm_identities_ids
+  dynamic identity {
+    for_each = var.vm_identities
+    content {
+      type         = identity.value["type"]
+      identity_ids = identity.value["identities_ids"]
+    }
   }
 }
 

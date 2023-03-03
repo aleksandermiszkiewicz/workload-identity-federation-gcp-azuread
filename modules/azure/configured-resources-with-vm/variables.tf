@@ -70,13 +70,11 @@ variable "vm_ssh_private_key_file_name" {
   default     = "az_vm.pem"
 }
 
-variable "vm_identity_type" {
-  type        = string
-  description = "Azure VM identity type: SystemAssigned, UserAssigned, SystemAssigned,UserAssigned"
-}
-
-variable "vm_identities_ids" {
-  type        = list(string)
-  description = "List of managed identity IDs assigned to Azure VM"
+variable "vm_identities" {
+  type = list(object({
+    type           = string
+    identities_ids = set(string)
+  }))
+  description = "Azure VM identities with which VM should be created. Identities types: SystemAssigned, UserAssigned, SystemAssigned,UserAssigned"
   default     = []
 }
