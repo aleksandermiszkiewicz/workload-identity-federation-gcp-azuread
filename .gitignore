@@ -1,0 +1,16 @@
+workload-identity-federation.iml
+.idea
+
+/*/.terraform
+/*/.terraform.lock.hcl
+/*/terraform.tfstate
+/*/terraform.tfstate.backup
+/*/wif-configs
+/*/scripts
+/wif-azure-devops-application
+/*/terraform.tfvars
+/modules/azure/azure-devops-service-connection
+/*/client-call.sh
+/*/az_vm.pem
+/*/my-terraform.tfvars
+#/*/backend.tf
