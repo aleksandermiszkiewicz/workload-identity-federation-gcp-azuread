@@ -5,16 +5,17 @@ resource "azurerm_resource_group" "az_rg" {
 }
 
 module "azure-application" {
-  source                                  = "../modules/azure/application-registration"
-  application_name                        = var.azure_application_name
-  resource_group                          = azurerm_resource_group.az_rg.name
-  depends_on                              = [azurerm_resource_group.az_rg]
+  source           = "../modules/azure/application-registration"
+  application_name = var.azure_application_name
+  resource_group   = azurerm_resource_group.az_rg.name
+  depends_on       = [azurerm_resource_group.az_rg]
 }
 
 module "azure-service-principal" {
   source         = "../modules/azure/service-principal"
   application_id = module.azure-application.azuread_application_id
   resource_group = azurerm_resource_group.az_rg.name
+  depends_on     = [azurerm_resource_group.az_rg]
 }
 
 module "azure-configured-resources-with-vm" {
@@ -117,7 +118,8 @@ resource "local_file" "generate_fetching_access_token_scripts" {
     ignore_changes = all
   }
   depends_on = [
-    module.gcp-workload-identity-federation, module.azure-application, module.azure-service-principal, module.gcp-service-account
+    module.gcp-workload-identity-federation, module.azure-application, module.azure-service-principal,
+    module.gcp-service-account
   ]
 }
 
